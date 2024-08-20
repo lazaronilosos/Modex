@@ -8,10 +8,7 @@ session_start();
 $sum;
 $sif;
 $products=isset($_SESSION['cart'])?$_SESSION['cart']:[];
-// private $name;
-// private $price;
-// private $count;
-// private $description;
+
 $arr=[];
 $totalPrice=0;
 foreach($products as $sif => $count){

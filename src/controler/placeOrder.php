@@ -4,14 +4,13 @@ require_once "../../config/connection.php";
 
 session_start();
 
-// Assuming user ID is stored in the session
 $userId = $_SESSION['id'] ?? null;
 // Check if user is logged in
 if (!$userId) {
     die("User not logged in.");
 }
 
-// Get the products array from the session (from the cart)
+
 $products = $_SESSION['cart'] ?? [];
 // echo "<pre>";
 // print_r($products);
@@ -29,7 +28,6 @@ try {
             unset($products[$sif]);
         } else{
         echo $sif." ".$count; 
-        // Fetch current product count from the database
         $stmt = $con->prepare("SELECT count FROM products WHERE sif = ?");
         $stmt->bind_param('s', $sif);
         $stmt->execute();
@@ -41,10 +39,8 @@ echo "<br>".$currentCount;
             throw new Exception("Product with sif $sif not found.");
         }
 
-        // Calculate the new count after purchase
         $newCount = $currentCount - $count;
 
-        // If the product is fully purchased, set count to NULL, otherwise update it
         if ($newCount <= 0) {
             $stmt = $con->prepare("UPDATE products SET count = NULL WHERE sif = ?");
         } else {
@@ -52,11 +48,9 @@ echo "<br>".$currentCount;
             $stmt->bind_param('is', $newCount, $sif);
         }
 
-        // Execute the update
         $stmt->execute();
         $stmt->close();
 
-        // Insert the order into the orders table
         $stmt = $con->prepare("INSERT INTO orders (product_sif, users_id, datum_narucivanja) VALUES (?, ?, CURDATE())");
         $stmt->bind_param('si', $sif, $userId);
         $stmt->execute();
@@ -64,21 +58,32 @@ echo "<br>".$currentCount;
         }
     }
 
-    // Commit the transaction
     $con->commit();
+// Upisujemo u log fajl
 
-    // Clear the cart after placing the order
+
+$file = 'spendings.txt';
+
+$handle = fopen($file, 'a');
+
+if ($handle) {
+    $content = "User with id - ".$userId." spent a total of - ".$_POST['total']."\n";
+    fwrite($handle, $content);
+    fclose($handle);
+    echo "Spendings appended successfully!";
+} else {
+    echo "Could not open the file!";
+}
+
     unset($_SESSION['cart']);
 
     header('Location:../../public/index.php');
     exit();
 
 } catch (Exception $e) {
-    // Rollback the transaction in case of error
     $con->rollback();
     echo "Error placing order: " . $e->getMessage();
 }
 
-// Close the database connection
 $con->close();
 ?>
