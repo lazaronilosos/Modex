@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Dobrodošli na zvaničnu stranicu Modex Moda plus</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../public/assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+						
+							<!-- Header -->
+								<header id="header">
+									
+									
+									<ul class="icons">
+<li><a href="../model/cart.php" class="icon solid fa fa-shopping-cart" style="font-size:36px><span class="label">Korpa</span></a></li>
+										<li class="icon solid fa-phone" > <span class="lakikaki">+381 64 1239911</span> </li>
+										<li><a href="https://www.facebook.com/GiftShopModexModaPlus" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="https://www.instagram.com/modexmodaplusnis/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+								<!-- Banner -->
+								
+								<!-- Section -->
+								<section class="gurmegold">
+																<header class="major">
+																	<h2>Shop</h2>
+																</header>
+
+																		
+									<form method="post" action="../model/shop.php" id="formica">
+	<div class="row gtr-uniform">
+		<input type="hidden" name="currpage" value="{{ currentPage }}">
+		<!-- New Category Line with 6 radio buttons -->
+		<div class="col-12">
+			<label>Filtriraj po kategoriji:</label>
+		</div>
+		<div class="col-2 col-12-small">
+			<input type="checkbox" id="filter-torba" name="filterkat[]" value="1" />
+			<label for="filter-torba">Torba</label>
+		</div>
+		<div class="col-2 col-12-small">
+			<input type="checkbox" id="filter-novcanik" name="filterkat[]" value="2" />
+			<label for="filter-novcanik">Novčanik</label>
+		</div>
+		<div class="col-2 col-12-small">
+			<input type="checkbox" id="filter-naocare" name="filterkat[]" value="3" />
+			<label for="filter-naocare">Naočare</label>
+		</div>
+		<div class="col-2 col-12-small">
+			<input type="checkbox" id="filter-sat" name="filterkat[]" value="4" />
+			<label for="filter-sat">Sat</label>
+		</div>
+		<div class="col-2 col-12-small">
+			<input type="checkbox" id="filter-bizuterija" name="filterkat[]" value="5" />
+			<label for="filter-bizuterija">Bižuterija</label>
+		</div>
+		<div class="col-2 col-12-small">
+			<input type="checkbox" id="filter-ostalo" name="filterkat[]" value="6" />
+			<label for="filter-ostalo">Ostalo</label>
+		</div>
+		<!-- End New Category Line -->
+		<!-- Break -->
+			<div class="col-12">
+			<label>Filtriraj po ceni:</label>
+		</div>
+		<div class="col-4 col-12-small">
+			<input type="number" name="viseod" id="viseod" placeholder="Vise od" />
+		</div>
+		<div class="col-4 col-12-small">
+			<input type="number" name="manjeod" id="manjeod" placeholder="Manje od" />
+		</div>
+		<!-- Break -->
+		<div class="col-12">
+			<ul class="actions">
+				<li><input type="submit" value="Filter" class="primary" /></li>
+				<li><input type="reset" value="Reset" /></li>
+			</ul>
+		</div>
+	</div>
+</form>
+<br><hr>
+
+
+								</section>
+									<div class="posts" id="postss">
+
+                                    {% for product in products %}
+                                    <article>
+                                        {% if role == "" %}
+                                        {% set pom="login.php" %}
+                                        {% else %}
+                                        {% set pom="../controler/cart.php" %} 
+                                        {% endif %}
+										<a href="#" class="image"><img src="../../public/images/{{product.sif}}.jpg" alt="" /></a>
+										<h3>{{product.name}}</h3><span>{{product.price}}&#8364;</span>
+										<p>{{product.description}}</p>
+										<ul class="actions"> 
+											<li> <form method="post" action="{{pom}}">
+				 <input type="hidden" name="page" value="{{currentPage}}">
+                <input type="hidden" name="sif" value="{{product.sif}}">
+				{% if filters.filterkat is defined %}
+					{% for value in filters.filterkat %}
+				 <input type="hidden" name="filter[]" value="{{ value }}">
+ {% endfor %}
+    {% endif %}
+				{% if filters.viseod is defined %}
+				<input type="hidden" name="filter[vise]" value="{{ filters.viseod }}">
+{% endif %}
+				{% if filters.manjeod is defined %}
+				<input type="hidden" name="filter[manje]" value="{{ filters.manjeod }}">
+{% endif %}
+                <!-- Input to select quantity -->
+                <input type="number" name="count" id="count" min="1" max="9" step="1" value="1">
+                <!-- Submit button -->
+                <button type="submit" class="button">Dodaj u korpu</button>
+            </form></li>
+										</ul>
+									</article>
+                                    {% endfor %}
+                                    
+									</div>
+<ul class="actions">
+<li><a href="../model/cart.php" class="button">Korpa</a></li>
+</ul>
+								</section>
+								{% if currentPage == 1 and totalPages == 1 %}
+<a href="#">{{ currentPage }}</a>&nbsp;&nbsp;&nbsp;
+								
+                               {% elseif currentPage == 1 %}
+    {% set nextPage = currentPage + 1 %}
+    <a href="#">{{ currentPage }}</a>&nbsp;&nbsp;&nbsp;
+    <a href="../model/shop.php?currpage={{ nextPage }}
+        {% if filters.filterkat is defined %}{% for kat in filters.filterkat %}&filterkat[]={{ kat }}{% endfor %}{% endif %}
+        {% if filters.viseod is defined %}&viseod={{ filters.viseod }}{% endif %}
+        {% if filters.manjeod is defined %}&manjeod={{ filters.manjeod }}{% endif %}
+    ">Next page</a> 
+{% elseif currentPage == totalPages %}
+    {% set prevPage = currentPage - 1 %}
+    <a href="../model/shop.php?currpage={{ prevPage }}
+        {% if filters.filterkat is defined %}{% for kat in filters.filterkat %}&filterkat[]={{ kat }}{% endfor %}{% endif %}
+        {% if filters.viseod is defined %}&viseod={{ filters.viseod }}{% endif %}
+        {% if filters.manjeod is defined %}&manjeod={{ filters.manjeod }}{% endif %}
+    ">Previous page</a>&nbsp;&nbsp;&nbsp;
+    <a href="#">{{ currentPage }}</a>
+{% else %}
+    {% set prevPage = currentPage - 1 %}
+    {% set nextPage = currentPage + 1 %}
+    <a href="../model/shop.php?currpage={{ prevPage }}
+        {% if filters.filterkat is defined %}{% for kat in filters.filterkat %}&filterkat[]={{ kat }}{% endfor %}{% endif %}
+        {% if filters.viseod is defined %}&viseod={{ filters.viseod }}{% endif %}
+        {% if filters.manjeod is defined %}&manjeod={{ filters.manjeod }}{% endif %}
+    ">Previous page</a>&nbsp;&nbsp;&nbsp;
+    <a href="#">{{ currentPage }}</a>&nbsp;&nbsp;&nbsp;
+    <a href="../model/shop.php?currpage={{ nextPage }}
+        {% if filters.filterkat is defined %}{% for kat in filters.filterkat %}&filterkat[]={{ kat }}{% endfor %}{% endif %}
+        {% if filters.viseod is defined %}&viseod={{ filters.viseod }}{% endif %}
+        {% if filters.manjeod is defined %}&manjeod={{ filters.manjeod }}{% endif %}
+    ">Next page</a>
+{% endif %}
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+							
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Meni</h2>
+									</header>
+									<ul>
+									<li><a href="../../public/index.php">Naslovna Strana</a></li>
+									{% if role == "" %}
+										<li><a href="../view/login.php">Uloguj se</a></li>
+									{% elseif role == "admin" %}
+										<li><a href="../view/admin.php">Admin stranica</a></li>
+									{% endif %}
+									<li><a href="../model/shop.php?filterkat[]=4">Satovi</a></li>
+										<li><a href="../model/shop.php?filterkat[]=1">Torbe</a></li>
+										<li><a href="../model/shop.php?filterkat[]=3">Naocare</a></li>
+										<li><a href="../model/shop.php?filterkat[]=2">Novčanici</a></li>
+										<li><a href="../model/shop.php?filterkat[]=5">Bizuterija</a></li>
+										<li><a href="../model/shop.php?filterkat[]=6">Ostali predmeti</a></li>
+									{% if role != "" %}
+										<li><a href="../controler/logout.php">Izloguj se</a></li>
+									{% endif %}
+								</ul>
+
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Aktuelnosti iz sveta mode</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="../../public/images/sat.jpg" alt="" /></a>
+											<p>Pogledaj našu raznovrsnu ponudu u oblasti satova! </p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="../../public/images/cvaje.jpg" alt="" /></a>
+											<p>Pogledaj našu raznovrsnu ponudu u oblasti naočara!</p>
+										</article>
+										<article>
+										<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=43.3136063,%2021.9349746+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps devices</a></iframe></div>
+											<p>Pogledaj mesto lokacije radnje!</p>
+										</article>
+									</div>
+									
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Kontaktiraj nas</h2>
+									</header>
+									<p>Naši operateri vredno rade da bi vam omogućili što bolje iskustvo na Modex Moda plus stranici, dostupni smo vam svakoga dana od 09h-21h, Pozovite nas!</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">modexmodaplus@gmail.com</a></li>
+										<li class="icon solid fa-phone">+381 64 1239911</li>
+										<li class="icon solid fa-home">posetite našu lokaciju u Duvaništu, u sklopu samog objekta super marketa Aman<br />
+										Majakovskog BB, Niš 18000, Srbija.</li>
+									</ul>
+								</section>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

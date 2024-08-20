@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Dobrodošli na zvaničnu stranicu Modex Moda plus</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../public/assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+						
+							<!-- Header -->
+								<header id="header">
+									
+									
+									<ul class="icons">
+<li><a href="../model/cart.php" class="icon solid fa fa-shopping-cart" style="font-size:36px><span class="label">Cart</span></a></li>
+										<li class="icon solid fa-phone" > <span class="lakikaki">+381 64 1239911</span> </li>
+										<li><a href="https://www.facebook.com/GiftShopModexModaPlus" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="https://www.instagram.com/modexmodaplusnis/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+								<!-- Banner -->
+								
+								<!-- Section -->
+								<section class="gurmegold">
+																<header class="major">
+																	
+                                    <h1>Cart</h1>
+																</header>
+
+                                    <div class="table-wrapper">
+														<table>
+															<thead>
+																<tr>
+																	<th>Naziv</th>
+																	<th>Cena po artiklu</th>
+																	<th>Deskripcija</th>
+                                                                    <th>Kolicina</th>
+                                                                    <th>Ukupna cena</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																{% for product in products %}
+                                                                <tr>
+                                                                    <th>{{product.getName()}}</th>
+                                                                    <th>{{product.getPrice()}}&#8364;</th>
+																	<th>{{product.getDescription()}}</th>
+                                                                    <th>{{product.getCount()}}</th>
+                                                                    <th>{{product.getSumPrice()}}&#8364;</th><tr>
+																	<th><a href="##########################################">Izbaci artikl</a></th>
+                                                                {% endfor %}
+															</tbody>
+															<tfoot>
+																<tr>
+																	<td colspan="4"></td>
+																	<td style="">TOTAL {{total}}&#8364;</td>
+																</tr>
+															</tfoot>
+														</table>
+													</div>
+                                                    <form action="../controler/placeOrder.php" method="POST">
+    <input type="hidden" name="total" value="{{total}}">
+    <button type="submit">Naruci</button>
+</form>
+<br><hr>
+
+
+									</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+							
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Meni</h2>
+									</header>
+									<ul>
+									<li><a href="../../public/index.php">Naslovna Strana</a></li>
+									{% if role == "" %}
+										<li><a href="../view/login.php">Uloguj se</a></li>
+									{% elseif role == "admin" %}
+										<li><a href="../view/admin.php">Admin stranica</a></li>
+									{% endif %}
+									<li><a href="../src/view/satovi.php">Satovi</a></li>
+									<li><a href="../src/view/torbe.php">Torbe</a></li>
+									<li><a href="../src/view/naocare.php">Naocare</a></li>
+									<li><a href="../src/view/novcanici.php">Novčanici</a></li>
+									<li><a href="../src/view/bizuterija.php">Bizuterija</a></li>
+									<li><a href="../src/view/ostali.php">Ostali predmeti</a></li>
+									{% if role != "" %}
+										<li><a href="../controler/logout.php">Izloguj se</a></li>
+									{% endif %}
+								</ul>
+
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Aktuelnosti iz sveta mode</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="../../public/images/sat.jpg" alt="" /></a>
+											<p>Pogledaj našu raznovrsnu ponudu u oblasti satova! </p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="../../public/images/cvaje.jpg" alt="" /></a>
+											<p>Pogledaj našu raznovrsnu ponudu u oblasti naočara!</p>
+										</article>
+										<article>
+										<div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=43.3136063,%2021.9349746+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps devices</a></iframe></div>
+											<p>Pogledaj mesto lokacije radnje!</p>
+										</article>
+									</div>
+									
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Kontaktiraj nas</h2>
+									</header>
+									<p>Naši operateri vredno rade da bi vam omogućili što bolje iskustvo na Modex Moda plus stranici, dostupni smo vam svakoga dana od 09h-21h, Pozovite nas!</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">modexmodaplus@gmail.com</a></li>
+										<li class="icon solid fa-phone">+381 64 1239911</li>
+										<li class="icon solid fa-home">posetite našu lokaciju u Duvaništu, u sklopu samog objekta super marketa Aman<br />
+										Majakovskog BB, Niš 18000, Srbija.</li>
+									</ul>
+								</section>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
