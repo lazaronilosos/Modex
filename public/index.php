@@ -134,7 +134,7 @@ $pom="../src/model/cart.php";
 										<h3>' . $name . '</h3><span>'.$price.'&#8364;</span>
 										<p>' . $description . '</p>
 										<ul class="actions"> 
-											<li><a href="../src/controler/' . $pom . '" class="button">Dodaj u korpu</a><span><input type="number" name="counter" id="counter" min="1" max="9" step="1" value="1"></span></li>
+											<li><a href="../src/view/' . $pom . '" class="button">Dodaj u korpu</a><span><input type="number" name="counter" id="counter" min="1" max="9" step="1" value="1"></span></li>
 										</ul>
 									</article>';
 									} ?>
