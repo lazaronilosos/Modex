@@ -1,7 +1,0 @@
-cart.php 
-(filter.php)
-admin.php
-moderator.php
-izvestaj.php
-shopValidation.php
-orderhistory, product, kategorija nova

@@ -41,8 +41,15 @@ if($stmt=$con->query($q)){
 								<header id="header">
 									
 									<ul class="icons">
-										
-									<li><a href="../src/model/cart.php" class="icon solid fa fa-shopping-cart" style="font-size:36px><span class="label">Korpa</span></a></li>
+										<?php
+										$pom="";
+if(isset($_SESSION['id'])){
+$pom="../src/model/cart.php";
+} else{
+	$pom="../src/view/login.php";
+}
+										?>
+									<li><a href=" <?php echo $pom;  ?>" class="icon solid fa fa-shopping-cart" style="font-size:36px><span class="label">Korpa</span></a></li>
 										<li class="icon solid fa-phone" > <span class="lakikaki">+381 64 1239911</span> </li>
 										<li><a href="https://www.facebook.com/GiftShopModexModaPlus" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
 										<li><a href="https://www.instagram.com/modexmodaplusnis/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
